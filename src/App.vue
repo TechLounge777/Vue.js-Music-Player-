@@ -91,4 +91,8 @@ body {
   background: gainsboro;
   box-shadow: 0px 6px 15px (#ffcbdd);
 }
+
+i {
+  cursor: pointer;
+}
 </style>

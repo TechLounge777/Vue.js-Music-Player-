@@ -1,23 +1,29 @@
 <template>
   <div class="top-nav">
     <div id="top-nav-controls">
-      <img
-        :src="iconX"
-        id="repeat-playlist"
-        width="20"
-        height="20"
-        alt="repeat-icon"
-      />
+      <button type="button" id="repeat">
+        <img
+          :src="iconX"
+          id="repeat-playlist"
+          width="20"
+          height="20"
+          alt="repeat-icon"
+        />
+      </button>
 
-      <i class="fas fa-redo"></i>
-      <i class="fas fa-random"></i>
+      <button id="redo">
+        <i class="fas fa-redo"></i>
+      </button>
+      <button id="random"><i class="fas fa-random"></i></button>
     </div>
-    <div id="bars">
-      <i class="fas fa-bars"></i>
+    <div>
+      <button @click="gotoplaylist" id="bars">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </div>
   <div class="cover-photo">
-    <img :src="song.src" width="380" height="360" alt="icon-pop-cover-photo" />
+    <img width="380" height="360" alt="icon-pop-cover-photo" />
 
     <div class="song-info">
       <h1 class="artist" v-bind="$attrs"></h1>
@@ -26,7 +32,7 @@
   </div>
 
   <div class="progress-container">
-    <div class="progress-line">
+    <div class="progre ss-line">
       <span></span>
       <div class="timer">
         <span class="current"></span>
@@ -36,14 +42,14 @@
   </div>
 
   <div class="bottom-navButtons">
-    <i id="share" class="fas fa-share-alt"></i>
+    <button id="share"><i class="fas fa-share-alt"></i></button>
     <div class="bottom-controls">
-      <i id="previous" class="fas fa-step-backward"></i>
-      <i id="play" class="fas fa-play-circle fa-2x"></i>
-      <!---- <i id="pause" class="fas fa-pause-circle fa-2x"></i> --->
-      <i id="next" class="fas fa-step-forward"></i>
+      <button id="previous"><i class="fas fa-step-backward"></i></button>
+      <button id="play"><i class="fas fa-play-circle fa-2x"></i></button>
+      <!---- <button id="pause"><i class="fas fa-pause-circle fa-2x"></i></button> --->
+      <button id="next"><i class="fas fa-step-forward"></i></button>
     </div>
-    <i id="like" class="fas fa-heart"></i>
+    <button id="like"><i class="fas fa-heart"></i></button>
   </div>
 </template>
 
@@ -64,6 +70,12 @@ export default {
       iconX: "./repeat-white.png",
       name: "MusicPlayer",
     };
+  },
+  emits: ["gotoplaylist"],
+  methods: {
+    gotoplaylist() {
+      this.$emit("gotoplaylist");
+    },
   },
 };
 </script>
@@ -114,6 +126,25 @@ export default {
   padding-left: 130px;
 }
 
+#repeat {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+#redo {
+  background: none;
+  border: none;
+  color: #fff;
+}
+
+#random {
+  background: none;
+  border: none;
+  color: #fff;
+}
+
 #bars {
   display: flex;
   align-items: center;
@@ -121,6 +152,8 @@ export default {
   padding-right: 40px;
   padding-left: 40px;
   color: darkgray;
+  background: none;
+  border: none;
 }
 
 .cover-photo {
@@ -198,8 +231,10 @@ export default {
   color: red;
   background-color: seashell;
   padding: 6px;
+  height: 50%;
   border-radius: 50%;
-  margin-left: 20px;
+  border-style: none;
+  margin-left: 15px;
 }
 
 #previous {
@@ -207,18 +242,21 @@ export default {
   padding: 6px;
   border-radius: 50%;
   height: 50%;
+  border-style: none;
 }
 
 #play {
   background-color: seashell;
   padding: 6px;
   border-radius: 50%;
+  border-style: none;
 }
 
 #pause {
   background-color: seashell;
   padding: 6px;
   border-radius: 50%;
+  border-style: none;
 }
 
 #next {
@@ -226,13 +264,16 @@ export default {
   padding: 6px;
   border-radius: 50%;
   height: 50%;
+  border-style: none;
 }
 
 #share {
   color: purple;
   background-color: seashell;
   padding: 6px;
+  height: 50%;
   border-radius: 50%;
-  margin-right: 20px;
+  border-style: none;
+  margin-right: 15px;
 }
 </style>

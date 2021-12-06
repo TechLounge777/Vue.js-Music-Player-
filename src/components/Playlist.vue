@@ -1,7 +1,7 @@
 <template>
   <section v-if="!isPlayerVisible" class="playlist">
     <div class="playlist-header">
-      <i id="return-icon" class="fas fa-undo fa-2x"></i>
+      <button id="return-icon"><i class="fas fa-undo fa-2x"></i></button>
       <h1>Playlist</h1>
       <i id="empty" class="fas fa-undo fa-2x"></i>
     </div>
@@ -18,8 +18,10 @@
 
       <div class="right-section">
         <div class="playlist-icons">
-          <i id="playlist-share-song" class="fas fa-share-alt"></i>
-          <i id="playlist-like-song" class="fas fa-heart"></i>
+          <button id="playlist-share-song">
+            <i class="fas fa-share-alt"></i>
+          </button>
+          <button id="playlist-like-song"><i class="fas fa-heart"></i></button>
         </div>
       </div>
 
@@ -29,7 +31,10 @@
     </div>
   </section>
   <div v-if="isPlayerVisible">
-    <MusicPlayer v-bind:song="list[currentSongIndex]" />
+    <MusicPlayer
+      v-bind:song="list[currentSongIndex]"
+      @gotoplaylist="isPlayerVisible = !isPlayerVisible"
+    />
   </div>
 </template>
 
@@ -38,7 +43,7 @@ import MusicPlayer from "./MusicPlayer.vue";
 export default {
   data() {
     return {
-      isPlayerVisible: false,
+      isPlayerVisible: true,
       currentSongIndex: 0,
       list: [
         {
@@ -46,7 +51,7 @@ export default {
           time: 13,
           artistName: "Icona Pop",
           songTitle: "Still don't know",
-          src: "https://placekitten.com/640/360",
+          src: "https://picsum.photos/seed/picsum/200/300",
           songSrc:
             "https://music.youtube.com/watch?v=Y0hmruuA4Jw&list=RDAMVMY0hmruuA4Jw",
         },
@@ -55,7 +60,7 @@ export default {
           time: 12,
           artistName: "Icona Pop",
           songTitle: "I Love It",
-          src: "https://placekitten.com/640/360",
+          src: "https://picsum.photos/seed/picsum/200/300",
           songSrc:
             "https://music.youtube.com/watch?v=Y0hmruuA4Jw&list=RDAMVMY0hmruuA4Jw",
         },
@@ -64,7 +69,7 @@ export default {
           time: 20,
           artistName: "Icona Pop",
           songTitle: "Girlfriend",
-          src: "https://placekitten.com/640/360",
+          src: "https://picsum.photos/seed/picsum/200/300",
           songSrc:
             "https://music.youtube.com/watch?v=Y0hmruuA4Jw&list=RDAMVMY0hmruuA4Jw",
         },
@@ -73,7 +78,7 @@ export default {
           time: 30,
           artistName: "Icona Pop",
           songTitle: "We Got the World",
-          src: "https://placekitten.com/640/360",
+          src: "https://picsum.photos/seed/picsum/200/300",
           songSrc:
             "https://music.youtube.com/watch?v=Y0hmruuA4Jw&list=RDAMVMY0hmruuA4Jw",
         },
@@ -82,7 +87,7 @@ export default {
           time: 24,
           artistName: "Icona Pop",
           songTitle: "Nights Like This",
-          src: "https://placekitten.com/640/360",
+          src: "https://picsum.photos/seed/picsum/200/300",
           songSrc:
             "https://music.youtube.com/watch?v=Y0hmruuA4Jw&list=RDAMVMY0hmruuA4Jw",
         },
@@ -103,7 +108,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  font-size: 12px;
+  font-size: 16px;
   color: darkslateblue;
 }
 
@@ -112,6 +117,8 @@ export default {
   padding: 6px;
   border-radius: 50%;
   height: 50%;
+  border-style: none;
+  color: purple;
 }
 
 #empty {
@@ -119,6 +126,7 @@ export default {
   border-radius: 50%;
   height: 50%;
   visibility: hidden !important;
+  border-style: none;
 }
 
 .playlist-item {
@@ -154,16 +162,20 @@ export default {
 
 .playlist-icons {
   display: flex;
-  gap: 10px;
+  gap: 15px;
   padding: 15px;
 }
 
 #playlist-share-song {
   color: purple;
+  border-style: none;
+  background: none;
 }
 
 #playlist-like-song {
   color: red;
+  border-style: none;
+  background: none;
 }
 .breakline {
   display: flex;
