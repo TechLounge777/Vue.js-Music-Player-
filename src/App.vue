@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <section class="playlist">
-      <Playlist />
-    </section>
+    <Playlist />
   </div>
 </template>
 
@@ -79,17 +77,6 @@ body {
   100% {
     background-position: 0% 50%;
   }
-}
-
-.playlist {
-  margin-top: 5px;
-  position: relative;
-  text-align: center;
-  width: 380px;
-  border-radius: 15px;
-  overflow: hidden;
-  background: gainsboro;
-  box-shadow: 0px 6px 15px (#ffcbdd);
 }
 
 i {

@@ -1,14 +1,9 @@
 <template>
+  <audio v-bind:src="song.songSrc" preload="auto" autoplay ref="audioPlayer" />
   <div class="top-nav">
     <div id="top-nav-controls">
       <button type="button" id="repeat">
-        <img
-          :src="iconX"
-          id="repeat-playlist"
-          width="20"
-          height="20"
-          alt="repeat-icon"
-        />
+        <i id="sync" class="fas fa-sync"></i>
       </button>
 
       <button id="redo">
@@ -44,10 +39,19 @@
   <div class="bottom-navButtons">
     <button id="share"><i class="fas fa-share-alt"></i></button>
     <div class="bottom-controls">
-      <button id="previous"><i class="fas fa-step-backward"></i></button>
-      <button id="play"><i class="fas fa-play-circle fa-2x"></i></button>
-      <!---- <button id="pause"><i class="fas fa-pause-circle fa-2x"></i></button> --->
-      <button id="next"><i class="fas fa-step-forward"></i></button>
+      <button @click="previoussong" id="previous">
+        <i class="fas fa-step-backward"></i>
+      </button>
+      <button v-if="!isPlaying" @click="playpauseswitch" id="play">
+        <i class="fas fa-play-circle fa-2x"></i>
+      </button>
+
+      <button v-if="isPlaying" @click="playpauseswitch" id="pause">
+        <i class="fas fa-pause-circle fa-2x"></i>
+      </button>
+      <button @click="nextsong" id="next">
+        <i class="fas fa-step-forward"></i>
+      </button>
     </div>
     <button id="like"><i class="fas fa-heart"></i></button>
   </div>
@@ -57,24 +61,38 @@
 export default {
   data() {
     return {
-      props: {
-        song: {
-          id: Number,
-          time: Number,
-          artistName: String,
-          songTitle: String,
-          src: String,
-          songSrc: String,
-        },
-      },
-      iconX: "./repeat-white.png",
-      name: "MusicPlayer",
+      isPlaying: true,
     };
   },
-  emits: ["gotoplaylist"],
+  props: {
+    song: {
+      id: Number,
+      time: Number,
+      artistName: String,
+      songTitle: String,
+      src: String,
+      songSrc: String,
+    },
+  },
+  name: "MusicPlayer",
+  emits: ["gotoplaylist", "nextsong", "previoussong"],
   methods: {
     gotoplaylist() {
       this.$emit("gotoplaylist");
+    },
+    playpauseswitch() {
+      if (this.isPlaying) {
+        this.$refs.audioPlayer.pause();
+      } else {
+        this.$refs.audioPlayer.play();
+      }
+      this.isPlaying = !this.isPlaying;
+    },
+    nextsong() {
+      this.$emit("nextsong");
+    },
+    previoussong() {
+      this.$emit("previoussong");
     },
   },
 };
