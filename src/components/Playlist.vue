@@ -146,6 +146,12 @@ export default {
   box-shadow: 0px 6px 15px (#ffcbdd);
 }
 
+@media screen and (max-width: 389px) {
+  .playlist {
+    width: 300px;
+  }
+}
+
 i {
   cursor: pointer;
 }
