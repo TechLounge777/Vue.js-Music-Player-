@@ -1,7 +1,7 @@
 <template>
   <audio v-bind:src="song.songSrc" preload="auto" autoplay ref="audioPlayer" />
   <div class="top-nav">
-    <div id="top-nav-controls">
+    <div v-bind:src="song.src" id="top-nav-controls">
       <button type="button" id="repeat">
         <i id="sync" class="fas fa-sync"></i>
       </button>
@@ -17,12 +17,12 @@
       </button>
     </div>
   </div>
-  <div class="cover-photo">
+  <div v-bind:src="song.src" class="cover-photo">
     <img width="380" height="360" alt="icon-pop-cover-photo" />
 
     <div class="song-info">
-      <h1 class="artist" v-bind="$attrs"></h1>
-      <h2 class="song-title"></h2>
+      <h1 class="artist" v-text="song.artistName" v-bind="$attrs"></h1>
+      <h2 class="song-title" v-text="song.songTitle"></h2>
     </div>
   </div>
 
@@ -59,6 +59,7 @@
 
 <script>
 export default {
+  name: "MusicPlayer",
   data() {
     return {
       isPlaying: true,
@@ -74,7 +75,6 @@ export default {
       songSrc: String,
     },
   },
-  name: "MusicPlayer",
   emits: ["gotoplaylist", "nextsong", "previoussong"],
   methods: {
     gotoplaylist() {
@@ -143,6 +143,11 @@ export default {
   padding-top: 30px;
   padding-left: 130px;
 }
+@media screen and (max-width: 389px) {
+  #top-nav-controls {
+    padding-left: 100px;
+  }
+}
 
 #repeat {
   background: none;
@@ -167,7 +172,7 @@ export default {
   display: flex;
   align-items: center;
   padding-top: 30px;
-  padding-right: 40px;
+  padding-right: 20px;
   padding-left: 40px;
   color: darkgray;
   background: none;
